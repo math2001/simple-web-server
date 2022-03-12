@@ -28,6 +28,7 @@ jobs:
 
   deploy:
     needs: test
+    concurrency: deployment   # makes sure only one deployment happens at a time
 
     runs-on: ubuntu-latest
     # TODO: make sure only one deployment pipeline can run at once
