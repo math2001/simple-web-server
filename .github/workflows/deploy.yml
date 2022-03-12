@@ -41,10 +41,10 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script_stop: true # stop running script after the first failure
           script: |
-            [ ! -d simple-web-server ] && git clone https://github.com/math2001/simple-web-server
+            [ ! -d simple-web-server ] && git clone https://github.com/math2001/simple-web-server || echo "git repo already cloned"
             cd simple-web-server
             git fetch origin main
             git checkout origin/main
             python3 scrape.py
             python3 parse_reports.py
-            bash ./start_server.bash
+            bash start_server.bash
