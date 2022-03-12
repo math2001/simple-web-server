@@ -5,6 +5,9 @@ on:
     branches: [ main ]
 
 jobs:
+  test:
+    uses: ./.github/workflows/wc_test.yml
+
   deploy:
     needs: test
     concurrency: deployment   # makes sure only one deployment happens at a time
