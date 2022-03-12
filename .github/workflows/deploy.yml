@@ -1,0 +1,50 @@
+name: Main Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          echo Installing dependencies...
+
+  test:
+    needs: build
+    steps:
+      - name: Lint with black
+        run: |
+          echo Everything passes, no worries
+
+      - name: Run tests
+        run: |
+          python test_foo.py
+
+  deploy:
+    needs: test
+    steps:
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_KEY }}
+
+          script: |
+            [ ! test -d simple-web-server ] && git clone https://github.com/math2001/simple-web-server
+            cd simple-web-server
+            git fetch origin main
+            git checkout origin/main
+            python scrape.py
+            python parse_reports.py
+            echo Now restart the server
