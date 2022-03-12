@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: |
           echo Installing dependencies...
-          
+
       - name: Lint with black
         run: |
           echo Everything passes, no worries
@@ -38,12 +38,12 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
-
+          script_stop: true # stop running script after the first failure
           script: |
-            [ ! test -d simple-web-server ] && git clone https://github.com/math2001/simple-web-server
+            [ ! -d simple-web-server ] && git clone https://github.com/math2001/simple-web-server
             cd simple-web-server
             git fetch origin main
             git checkout origin/main
-            python scrape.py
-            python parse_reports.py
+            python3 scrape.py
+            python3 parse_reports.py
             echo Now restart the server
