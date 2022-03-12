@@ -24,6 +24,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script_stop: true # stop running script after the first failure
           script: |
+            echo "Test:" ${{ secrets.SSH_HOST }}
             [ ! -d simple-web-server ] && git clone https://github.com/math2001/simple-web-server || echo "git repo already cloned"
             cd simple-web-server
             git fetch origin main
