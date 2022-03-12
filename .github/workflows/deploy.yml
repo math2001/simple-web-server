@@ -30,6 +30,7 @@ jobs:
     needs: test
 
     runs-on: ubuntu-latest
+    # TODO: make sure only one deployment pipeline can run at once
     steps:
       - name: Deploy to server
         uses: appleboy/ssh-action@master
@@ -46,4 +47,4 @@ jobs:
             git checkout origin/main
             python3 scrape.py
             python3 parse_reports.py
-            echo Now restart the server
+            bash ./start_server.bash
