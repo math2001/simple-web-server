@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,10 +17,7 @@ jobs:
       - name: Install dependencies
         run: |
           echo Installing dependencies...
-
-  test:
-    needs: build
-    steps:
+          
       - name: Lint with black
         run: |
           echo Everything passes, no worries
@@ -31,6 +28,8 @@ jobs:
 
   deploy:
     needs: test
+
+    runs-on: ubuntu-latest
     steps:
       - name: Deploy to server
         uses: appleboy/ssh-action@master
