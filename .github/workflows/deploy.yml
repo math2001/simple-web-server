@@ -45,7 +45,7 @@ jobs:
             [ ! -d simple-web-server ] && git clone https://github.com/math2001/simple-web-server || echo "git repo already cloned"
             cd simple-web-server
             git fetch origin main
-            git checkout origin/main
+            git checkout -f origin/main
             python3 scrape.py
             python3 parse_reports.py
             bash start_server.bash
