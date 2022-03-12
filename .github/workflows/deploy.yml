@@ -1,31 +1,10 @@
-name: Main Pipeline
+name: Deploy Pipeline
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.10"
-
-      - name: Install dependencies
-        run: |
-          echo Installing dependencies...
-
-      - name: Lint with black
-        run: |
-          echo Everything passes, no worries
-
-      - name: Run tests
-        run: |
-          python test_foo.py
-
   deploy:
     needs: test
     concurrency: deployment   # makes sure only one deployment happens at a time
@@ -48,7 +27,7 @@ jobs:
             git checkout -f origin/main
             python3 scrape.py
             python3 parse_reports.py
-            bash start_server.bash
+            # bash start_server.bash
             echo "deployment done"
       - name: Finish
         run: |
