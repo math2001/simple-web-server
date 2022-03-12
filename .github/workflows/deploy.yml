@@ -50,3 +50,6 @@ jobs:
             python3 parse_reports.py
             bash start_server.bash
             echo "deployment done"
+      - name: Finish
+        run: |
+          echo All done! Changes should now be live!
