@@ -49,3 +49,4 @@ jobs:
             python3 scrape.py
             python3 parse_reports.py
             bash start_server.bash
+            echo "deployment done"

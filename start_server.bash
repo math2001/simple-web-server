@@ -5,4 +5,6 @@ echo "Killing server"
 echo "Starting server"
 ~/.local/bin/waitress-serve server:app &   # start in the background
 echo $! > ~/server.pid
+echo "saved PID"
 disown
+echo "done"
